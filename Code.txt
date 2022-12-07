@@ -128,7 +128,7 @@ def get_stock_diag():
     f.set_figheight(5)
     plt.grid()
     plt.bar(stock.keys(), stock.values(), color = colors)
-    plt.savefig('stock.png')
+    plt.savefig('stock.jpg')
 
 def get_futur_stock_diag(current_stock, days):
     
@@ -148,7 +148,7 @@ def get_futur_stock_diag(current_stock, days):
     f.set_figheight(5)
     plt.grid()
     plt.bar(stock.keys(), stock.values(), color = colors)
-    plt.savefig('futur_stock.png')
+    plt.savefig('futur_stock.jpg')
 
 def create_order( id_order, id_product, id_provider, arrival_date, quantity):
     dsn_tns = cx_Oracle.makedsn('localhost', '1521', service_name='XEPDB1')
@@ -160,6 +160,3 @@ def create_order( id_order, id_product, id_provider, arrival_date, quantity):
               str(id_provider)+r"', TO_DATE('"+arrival_date+r"', 'YYYY/MM/DD'), "+ str(quantity)+')')
     c.execute('commit')
     return c
-
-create_order(1000,1,'C0KLM','2022-12-14', 10)
-
