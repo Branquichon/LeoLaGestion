@@ -78,12 +78,12 @@ class window():
         self.f.title("Stock Tool")
         self.f.geometry("400x300")
         Title=Label(self.f,text="Current stock tab").pack()
-        tableau = Treeview(self.f, columns=('nomfamille', 'prenom', 'da'))
-        tableau.heading('nomfamille', text='Nom de famille')
-        tableau.heading('prenom', text='Prénom')
-        tableau.heading('da', text='DA')
-        tableau['show'] = 'headings' 
-        tableau.pack()
+        # tableau = Treeview(self.f, columns=('nomfamille', 'prenom', 'da'))
+        # tableau.heading('nomfamille', text='Nom de famille')
+        # tableau.heading('prenom', text='Prénom')
+        # tableau.heading('da', text='DA')
+        # tableau['show'] = 'headings' 
+        # tableau.pack()
         
         backmenu=Button(self.f,text="Back to the current stock menu",command=self.current_stock_menu).pack()
         self.f.mainloop()
@@ -194,7 +194,7 @@ class window():
         self.f=Tk()
         self.f.title("Stock Tool")
         self.f.geometry("400x300")
-        Title=Label(self.f,text="Order Menu").pack()
+        Title=Label(self.f,text="Order successfully passed").pack()
         order_menu=Button(self.f,text="Back to the order menu",command=self.order).pack()
         backmenu=Button(self.f,text="Back to the user menu",command=self.user_menu).pack()
         self.f.mainloop()
@@ -326,6 +326,7 @@ class window():
         Title=Label(self.f,text="Administrator Menu").pack()
         b1=Button(self.f,text="Add a new product to the data base",command=self.admin_add).pack()
         b2=Button(self.f,text="Remove a  product from the data base",command=self.admin_pop).pack()
+        b3=Button(self.f,text="Edit a  product from the data base",command=self.admin_edit).pack()
         backmenu=Button(self.f,text="Back to the log page ",command=self.admin_page).pack()
         self.f.mainloop()
         
@@ -335,6 +336,36 @@ class window():
         self.f.title("Stock Tool")
         self.f.geometry("400x300")
         Title=Label(self.f,text="New product Menu").pack()
+        global id_product
+        id_product=StringVar()
+        global nom_produit
+        nom_produit=StringVar()
+        global stock_produit
+        stock_produit=StringVar()
+        global capacite
+        capacite=StringVar()
+        global avg_daily
+        avg_daily=StringVar()
+        t2=Label(self.f,text="Enter the id_product").pack()
+        id_product_entry=Entry(self.f,textvariable=id_product,width=30).pack()
+        t2=Label(self.f,text="Enter the name of the product").pack()
+        nom_produit_entry=Entry(self.f,textvariable=nom_produit,width=30).pack()
+        t2=Label(self.f,text="Enter the stock of the product").pack()
+        stock_produit_entry=Entry(self.f,textvariable=stock_produit,width=30).pack()
+        t2=Label(self.f,text="Enter the capacite").pack()
+        capacite_entry=Entry(self.f,textvariable=capacite,width=30).pack()
+        t2=Label(self.f,text="Enter the daily average").pack()
+        avg_daily_entry=Entry(self.f,textvariable=avg_daily,width=30).pack()
+        validation=Button(self.f,text="Add the product",command=self.admin_add2).pack()
+        backmenu=Button(self.f,text="Back to the administrator menu",command=self.admin_menu).pack()
+        self.f.mainloop()
+        
+    def admin_add2(self):
+        self.f.destroy()
+        self.f=Tk()
+        self.f.title("Stock Tool")
+        self.f.geometry("400x400")
+        Title=Label(self.f,text="Product successfully added").pack()
         backmenu=Button(self.f,text="Back to the administrator menu",command=self.admin_menu).pack()
         self.f.mainloop()
         
@@ -344,6 +375,62 @@ class window():
         self.f.title("Stock Tool")
         self.f.geometry("400x300")
         Title=Label(self.f,text="Remove a product  Menu").pack()
+        global id_product
+        id_product=StringVar()
+
+        avg_daily=StringVar()
+        t2=Label(self.f,text="Enter the id_product").pack()
+        id_product_entry=Entry(self.f,textvariable=id_product,width=30).pack()
+
+        validation=Button(self.f,text="Remove the product",command=self.admin_pop2).pack()
+        backmenu=Button(self.f,text="Back to the administrator menu",command=self.admin_menu).pack()
+        self.f.mainloop()
+        
+    def admin_pop2(self):
+        self.f.destroy()
+        self.f=Tk()
+        self.f.title("Stock Tool")
+        self.f.geometry("400x400")
+        Title=Label(self.f,text="Product successfully removed").pack()
+        backmenu=Button(self.f,text="Back to the administrator menu",command=self.admin_menu).pack()
+        self.f.mainloop()
+        
+    def admin_edit(self):
+        self.f.destroy()
+        self.f=Tk()
+        self.f.title("Stock Tool")
+        self.f.geometry("400x300")
+        Title=Label(self.f,text="Remove a product  Menu").pack()
+
+        global nom_produit
+        nom_produit=StringVar()
+        global stock_produit
+        stock_produit=StringVar()
+        global capacite
+        capacite=StringVar()
+        global avg_daily
+        avg_daily=StringVar()
+
+        t2=Label(self.f,text="Enter the name of the product").pack()
+        nom_produit_entry=Entry(self.f,textvariable=nom_produit,width=30).pack()
+        t2=Label(self.f,text="Enter the stock of the product").pack()
+        stock_produit_entry=Entry(self.f,textvariable=stock_produit,width=30).pack()
+        t2=Label(self.f,text="Enter the capacite").pack()
+        capacite_entry=Entry(self.f,textvariable=capacite,width=30).pack()
+        t2=Label(self.f,text="Enter the daily average").pack()
+        avg_daily_entry=Entry(self.f,textvariable=avg_daily,width=30).pack()
+        validation=Button(self.f,text="Edit the product",command=self.admin_edit2).pack()
+        backmenu=Button(self.f,text="Back to the administrator menu",command=self.admin_menu).pack()
+        self.f.mainloop()
+        
+        
+    def admin_edit2(self):
+        self.f.destroy()
+        self.f=Tk()
+        self.f.title("Stock Tool")
+        self.f.geometry("400x400")
+        Title=Label(self.f,text="Product successfully edited").pack()
+                
         backmenu=Button(self.f,text="Back to the administrator menu",command=self.admin_menu).pack()
         self.f.mainloop()
 
