@@ -1,12 +1,9 @@
 import math
+import numpy as np
 import cx_Oracle
 import matplotlib.pyplot as plt
 from datetime import date
 from datetime import timedelta
-
-
-
-# MODIFIER LES INFOS AVEC LES BONNES https://datatofish.com/how-to-connect-python-to-an-oracle-database-using-cx_oracle/
 
 
 class user : 
@@ -129,6 +126,16 @@ def get_stock_diag():
     plt.grid()
     plt.bar(stock.keys(), stock.values(), color = colors)
     plt.savefig('stock.jpg')
+    
+def get_stock_tab():
+    
+    dsn_tns = cx_Oracle.makedsn('localhost', '1521', service_name='XEPDB1')
+    current_stock = init_stock(dsn_tns)
+    stock = np.array()
+    for i in current_stock :
+        newline = [i.get_id(), i.get_name(),i.get_stock()]
+        stock.append(newline)
+    return stock
 
 def get_futur_stock_diag(current_stock, days):
     
@@ -149,6 +156,22 @@ def get_futur_stock_diag(current_stock, days):
     plt.grid()
     plt.bar(stock.keys(), stock.values(), color = colors)
     plt.savefig('futur_stock.jpg')
+    
+def get_futur_stock_tab(current_stock, days):
+    
+    dsn_tns = cx_Oracle.makedsn('localhost', '1521', service_name='XEPDB1')
+    stock = init_stock(dsn_tns)
+    stock = np.array()
+    
+    for i in current_stock :
+        arrivals = 0
+        for c in query_order_futur(days, i, dsn_tns):
+            arrivals = arrivals + c[3]
+        futur = i.get_futur_stock(days) + arrivals
+        newline = [i.get_id(), i.get_name(),futur]
+        stock.append(newline)
+    return stock
+
 
 def create_order( id_order, id_product, id_provider, arrival_date, quantity):
     dsn_tns = cx_Oracle.makedsn('localhost', '1521', service_name='XEPDB1')
